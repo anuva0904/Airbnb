@@ -1,0 +1,127 @@
+<header>
+  <nav class="navbar">
+    <div class="brand">
+      <a href="/" class="brand-logo">AirBnB</a>
+    </div>
+    <ul class="nav-links">
+      <% if (isLoggedIn) { %>
+        <% if (user && user.userType === 'guest') { %>
+          <li><a href="/home">Homes</a></li>
+          <li><a href="/bookings">Bookings</a></li>
+          <li><a href="/favourites">Favourites</a></li>
+        <% } else { %>  
+          <li><a href="/host/add-home">Add Home</a></li>
+          <li><a href="/host/host-home-list">Host-Homes</a></li>
+        <% } %>  
+        <li>
+          <form action="/logout" method="POST">
+            <button type="submit" class="btn btn-logout">Logout</button>
+          </form>
+        </li>
+      <% } else { %>
+        <li><a href="/login">Sign In</a></li>
+        <li><a href="/signup">Sign Up</a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  /* General Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  /* Header Styling */
+  header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+  }
+
+  /* Brand Logo */
+  .brand-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ff5a5f;
+  }
+
+  .brand-logo:hover {
+    color: #e04e50;
+  }
+
+  /* Navigation Links */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links li {
+    margin-left: 20px;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #555;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #ff5a5f;
+  }
+
+  /* Logout Button */
+  .btn-logout {
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-logout:hover {
+    background-color: #e04e50;
+  }
+
+  /* Mobile Responsive Adjustments */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 10px;
+    }
+
+    .nav-links li {
+      margin: 10px 0;
+    }
+  }
+</style>

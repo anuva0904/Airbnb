@@ -1,0 +1,269 @@
+<%- include('../partials/head') %>
+<style>
+ .signup-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px 30px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signup-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Form styles */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #ff5252;
+  box-shadow: 0 0 5px rgba(255, 82, 82, 0.5);
+}
+
+/* Radio and Checkbox */
+.form-section {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.form-radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.form-radio input {
+  margin-right: 5px;
+}
+
+.form-checkbox input {
+  margin-right: 10px;
+}
+
+.form-link {
+  color: #ff5252;
+  text-decoration: none;
+}
+
+.form-link:hover {
+  text-decoration: underline;
+}
+
+/* Submit button */
+.btn-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px;
+  background-color: #ff5252;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #e53935;
+}
+
+.btn-submit i {
+  margin-left: 8px;
+}
+
+/* Footer */
+.form-footer {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+</style>
+</head>
+<body>
+  <%- include('../partials/nav') %>
+  <main class="signup-container">
+    <h1 class="signup-title">Create Your Account</h1>
+    
+    <form action="/signup" method="POST" class="signup-form">
+      <%- include('../partials/errors') %>
+      
+      <!-- Name fields in a flex layout -->
+      <div class="form-flex">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="John"
+              value="<%= oldInput.firstName ? oldInput.firstName : '' %>"
+              class="form-input"
+              required />
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <div class="input-container">
+            <span class="input-icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value="<%= oldInput.lastName ? oldInput.lastName : '' %>"
+              placeholder="Doe"
+              class="form-input" />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Email field -->
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="input-container">
+          <span class="input-icon">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="<%= oldInput.email ? oldInput.email : '' %>"
+            placeholder="your.email@example.com"
+            class="form-input"
+            required />
+        </div>
+      </div>
+      
+      <!-- Password fields -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-container">
+          <span class="input-icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter Your Password"
+            class="form-input"
+            required/>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <div class="input-container">
+          <span class="input-icon">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Confirm Your Password"
+            class="form-input"
+            required/>
+        </div>
+      </div>
+
+      <!-- User type selection -->
+      <div class="form-group form-section">
+        <p class="form-section-title">I want to register as:</p>
+        <div class="form-radio-group">
+          <label class="form-radio">
+            <input type="radio" name="userType" value="guest" id="guest" checked="<% oldInput.userType === 'guest' %>" />
+            <span>Guest</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="userType" value="host" id="host" checked="<% oldInput.userType === 'host' %>" />
+            <span>Host</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Terms and conditions -->
+      <div class="form-group">
+        <label class="form-checkbox">
+          <input type="checkbox" name="terms" id="terms" required />
+          <span>I agree to the <a href="#" class="form-link">terms and conditions</a></span>
+        </label>
+      </div> 
+
+      <!-- Submit button -->
+      <button type="submit" class="btn-submit">
+        <span>Register</span>
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      
+      <!-- Login link -->
+      <p class="form-footer">
+        Already have an account? <a href="/login" class="form-link">Log in</a>
+      </p>
+    </form>
+  </main>
+</body>
+</html>

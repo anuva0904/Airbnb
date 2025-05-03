@@ -1,0 +1,57 @@
+<% if (errors.length > 0) { %>
+  <div class="error-container">
+    <div class="error-header">
+      <strong><i class="fas fa-exclamation-circle"></i> Error!</strong>
+    </div>
+    <ul class="error-list">
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+<style>
+
+.error-container {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
+}
+
+.error-header {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.error-header i {
+  margin-right: 5px;
+  color: #721c24;
+}
+
+.error-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.error-list li {
+  margin: 5px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.error-list li::before {
+  content: "\2022";
+  color: #721c24;
+  font-weight: bold;
+  display: inline-block;
+  width: 15px;
+  margin-left: -15px;
+}
+</style>

@@ -1,0 +1,191 @@
+<%- include("../partials/head") %>
+  <style>
+    /* ==== Global Styles ==== */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: #333;
+    }
+
+    main a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      background-color: #e54e52;
+    }
+
+    main a:hover {
+      background-color: lightcoral;
+    }
+
+    /* ==== Header & Navigation ==== */
+    header {
+      background-color: #ff5a5f;
+      padding: 1rem 2rem;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav li {
+      margin-left: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #e54e52;
+    }
+
+    /* ==== Main Section ==== */
+    main {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ==== Home Card Grid ==== */
+    .home-card-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .home-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fafafa;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .home-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .home-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .home-info {
+      padding: 1rem;
+    }
+
+    .home-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .home-info p {
+      margin: 0.4rem 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .home-info span {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .home-info button {
+      margin-top: 0.75rem;
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .home-info button:hover {
+      background-color: #0056b3;
+    }
+
+    /* ==== Delete Button ==== */
+    form button[type="submit"] {
+      background-color: #e54e52;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button[type="submit"]:hover {
+      background-color: #c13b39;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/nav') %>
+  <main>
+    <h2>
+      Hey Host! Here are your homes:
+    </h2>
+    <div class="home-card-list">
+      <% registeredhome.forEach(home => { %>
+        <div class="home-card">
+          <img class="home-img" src="<%= home.photo %>" alt="<%= home.houseName %>">
+          <div class="home-info">
+            <h3><%= home.houseName %></h3>
+            <p><%= home.location %></p>
+            <div class="price-rating">
+              <span>Rs <%= home.price %> / night</span>
+              <div class="rating">
+                <span><%= home.rating %></span>
+              </div>
+            </div> <br>
+            <a class="edit-home-btn" href="/host/edit-home/<%= home._id %>?editing=true">Edit</a>
+            <form action="/host/delete-home/<%= home._id %>" method="POST">
+              <button type="submit" class="delete-home-btn">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

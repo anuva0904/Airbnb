@@ -1,0 +1,170 @@
+<%- include("../partials/head") %>
+  <style>
+/* ==== Global Styles ==== */
+  body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  color: #333;
+}
+/* ==== Header & Navigation ==== */
+header {
+  background-color: #ff5a5f;
+  padding: 1rem 2rem;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #e54e52;
+}
+
+/* ==== Form Container ==== */
+.form-main {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ==== Form Styling ==== */
+.property-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.property-form input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.property-form input:focus {
+  border-color: #ff5a5f;
+  outline: none;
+  background-color: #fff;
+}
+
+.property-form textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.property-form textarea:focus {
+  border-color: #ff5a5f;
+  outline: none;
+  background-color: #fff;
+}
+
+/* ==== Submit Button ==== */
+.property-form button {
+  padding: 0.75rem 1.5rem;
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.property-form button:hover {
+  background-color: #e54e52;
+}
+  </style>
+</head>
+<body>
+  
+  <%- include("../partials/nav") %>
+  
+  <main class="form-main">
+    <h1><%= editing ? "Edit" : "Register"%> Your Home on Airbnb</h1> <br>
+    <form  class="property-form" action="/host/<%= editing ? "edit-home" : "add-home"%>" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
+      <input
+        type="text"
+        name="houseName"
+        value="<%= editing ? home.houseName : ''%>"
+        placeholder="Enter your name"
+        required
+      />
+      <input
+        type="text"
+        name="price"
+        value="<%= editing ? home.price : ''%>"
+        placeholder="Price per Night"
+        required
+      />
+      <input
+        type="text"
+        name="location"
+        value="<%= editing ? home.location : ''%>"
+        placeholder="Enter your Location"
+        required
+      />
+      <input
+      type="text"
+      name="rating"
+      value="<%= editing ? home.rating : ''%>"
+      placeholder="Enter rating"
+      required
+    />
+
+     <input
+        type="file"
+        name="photo"
+        accept="image/jpg, image/png, image/jpeg"
+      />
+
+      <textarea
+        name="description"
+        placeholder="Enter your description"><%= editing ? home.description : ''%></textarea>
+      <button type="submit"><%= editing ? "Update Home" : "Add Home"%>
+       </button>
+    </form>
+  </main>
+  
+</body>
+</html>

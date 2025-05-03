@@ -1,0 +1,231 @@
+<%- include("../partials/head") %>
+<style>
+/* ==== Global Styles ==== */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  color: #333;
+}
+
+/* ==== Header & Navigation ==== */
+header {
+  background-color: #ff5a5f;
+  padding: 1rem 2rem;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #e54e52;
+}
+form button {
+  background-color: #ff5a5f;
+  color: white;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #e54e52;
+}
+
+form {
+  display: inline;
+}
+/* ==== Home Details Layout ==== */
+.home-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.home-details-container img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  object-fit: cover;
+}
+
+/* Responsive two-column layout */
+@media screen and (min-width: 768px) {
+  .home-details-container {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem; 
+  }
+
+  .home-details-container img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .home-info-section {
+    width: 100%;
+  }
+}
+
+h2 {
+  color: #e54e52;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* ==== Info Section ==== */
+.home-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  background-color: #fff;
+}
+
+.home-info-section div {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.home-info-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #111;
+}
+
+.home-info-section p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.home-price {
+  color: #2ecc71;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* ==== Rating ==== */
+.home-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.home-rating span:first-child {
+  color: gold;
+}
+
+/* Optional shadow around the entire section */
+main {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 1100px;
+  margin: 3rem auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+.fbutton{
+  display: inline-block;
+  background-color: #ff5a5f;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.fbutton:hover {
+  background-color: #e54e52;
+}
+
+</style>
+  </head>
+  <body>
+    <%- include("../partials/nav") %>
+    <main>
+      <h2>Details of <%= home.houseName %></h2>
+    
+      <div class="home-details-container">
+        <!-- Home Image -->
+        <div>
+          <img src="<%= home.photo %>" alt="<%= home.name %>">
+        </div>
+    
+        <!-- Info Section -->
+        <div class="home-info-section">
+          <div>
+            <h3>Description</h3>
+            <p><%= home.description %></p>
+          </div>
+    
+          <div>
+            <h3>Location</h3>
+            <p><%= home.location %></p>
+          </div>
+    
+          <div>
+            <h3>Price</h3>
+            <p>$<%= home.price %> / night</p>
+          </div>
+    
+          <div>
+            <h3>Rating</h3>
+            <div class="home-rating">
+              <span>★</span>
+              <span><%= home.rating %> / 5</span>
+            </div>
+          </div>
+    
+          <!-- Include favourite button partial -->
+          <div>
+            <%- include('../partials/favourite') %>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
